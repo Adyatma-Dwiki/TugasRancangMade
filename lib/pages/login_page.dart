@@ -1,13 +1,16 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, sort_child_properties_last, avoid_print, prefer_const_literals_to_create_immutables, empty_constructor_bodies
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, sort_child_properties_last, avoid_print, prefer_const_literals_to_create_immutables, empty_constructor_bodies, unused_element
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tugasrancang/components/my_button.dart';
 import 'package:tugasrancang/components/my_textfield.dart';
 
+import 'home_page.dart';
+import 'register_page.dart';
+
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
-  const LoginPage({super.key, required this.onTap});
+  const LoginPage({Key? key, required this.onTap}) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -31,33 +34,49 @@ class _LoginPageState extends State<LoginPage> {
     try{
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text, 
-        password: passwordcontroller.text);
+        password: passwordcontroller.text)
+          .then((result) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomePage(),
+          ),
+        );
+      });
+    } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
-    }on FirebaseAuthException catch(e){
-      Navigator.pop(context);
-      showErorMesaage(e.code);
+      showErrorMessage(e.code);
     }
-  
   }
 
-  void showErorMesaage(String message){
+  void showErrorMessage(String message){
     showDialog(
     context: context, 
     builder: (context){
       return  AlertDialog(
-        backgroundColor: Colors.deepOrange,
+        backgroundColor: Color.fromARGB(255, 72, 69, 69),
         title: Center(
           child:Text(message, style: TextStyle(color: Colors.white)) ,));
     }
     );   
   }
+  void _goToRegisterPage() {
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => RegisterPage(onTap: _goToLoginPage)),
+  );
+}
+
+void _goToLoginPage() {
+  Navigator.pop(context);
+}
 
   
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xFFDCCBA9),
+        backgroundColor: Color.fromARGB(255, 175, 174, 175),
         body: SafeArea(
             child: Center(
           child: Column(
@@ -68,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
               Icon(
                 Icons.home_filled,
                 size: 100,
-                color: Color.fromARGB(255, 246, 230, 230),
+                color: Color.fromARGB(255, 4, 4, 4),
               ),
 
               //welcomeback
@@ -110,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
               ),
-              const SizedBox(height: 50),
+              const SizedBox(height: 100),
 
               //login button
               MyButton(
@@ -119,7 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                 }, text: 'Sign In',  
                 ),
                 
-              const SizedBox(height: 80),
+              const SizedBox(height: 85),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
