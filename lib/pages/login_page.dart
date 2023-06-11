@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tugasrancang/components/my_button.dart';
 import 'package:tugasrancang/components/my_textfield.dart';
+import 'package:tugasrancang/pages/forget_pass.dart';
 
 import 'home_page.dart';
 import 'register_page.dart';
@@ -67,6 +68,13 @@ class _LoginPageState extends State<LoginPage> {
   );
 }
 
+void _goToForgetPassword() {
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => ForgetPassword()),
+  );
+}
+
 void _goToLoginPage() {
   Navigator.pop(context);
 }
@@ -78,9 +86,7 @@ void _goToLoginPage() {
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 175, 174, 175),
         body: SafeArea(
-            child: Center(
-          child: Column(
-            // ignore: prefer_const_literals_to_create_immutables
+            child: ListView(
             children: [
               const SizedBox(height: 50),
               //logo
@@ -91,16 +97,17 @@ void _goToLoginPage() {
               ),
 
               //welcomeback
+              const SizedBox(height: 20),
               Text(
                 "Smart Home Application",
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 30,
                   color: Colors.black,
                   fontFamily: 'Inter',
                 ),
               ),
-              const SizedBox(height: 50),
-
+              const SizedBox(height: 20),
               //email
               const SizedBox(height: 20),
 
@@ -123,13 +130,18 @@ void _goToLoginPage() {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  // ignore: prefer_const_literals_to_create_immutables
-                  children: [
-                    Text("Forgot Your Password?"),
+                    children: [
+                    GestureDetector(
+                      onTap: _goToForgetPassword,
+                      child: const Text('Forget Password?',
+                      style: TextStyle(color: Colors.black),),
+                    ),
+                    
                   ],
+                  
                 ),
               ),
-              const SizedBox(height: 100),
+              const SizedBox(height: 50),
 
               //login button
               MyButton(
@@ -155,6 +167,6 @@ void _goToLoginPage() {
                 ],
               ),
             ],
-        ))));
+        )));
   }
 }

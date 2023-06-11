@@ -23,15 +23,9 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -66,5 +60,27 @@ class DefaultFirebaseOptions {
     projectId: 'flutterdemoapp-5b9c9',
     databaseURL: 'https://flutterdemoapp-5b9c9-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'flutterdemoapp-5b9c9.appspot.com',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyCwrmPhiyuQ31hcbkU_lWk_tdO9pxqLTBM',
+    appId: '1:658632820153:ios:00b040542ee4fff2a36268',
+    messagingSenderId: '658632820153',
+    projectId: 'flutterdemoapp-5b9c9',
+    databaseURL: 'https://flutterdemoapp-5b9c9-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'flutterdemoapp-5b9c9.appspot.com',
+    iosClientId: '658632820153-7l64cg5mqru7fmpp3l4jnudpjtu4iu2i.apps.googleusercontent.com',
+    iosBundleId: 'com.example.tugasrancang',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyCwrmPhiyuQ31hcbkU_lWk_tdO9pxqLTBM',
+    appId: '1:658632820153:ios:00b040542ee4fff2a36268',
+    messagingSenderId: '658632820153',
+    projectId: 'flutterdemoapp-5b9c9',
+    databaseURL: 'https://flutterdemoapp-5b9c9-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'flutterdemoapp-5b9c9.appspot.com',
+    iosClientId: '658632820153-7l64cg5mqru7fmpp3l4jnudpjtu4iu2i.apps.googleusercontent.com',
+    iosBundleId: 'com.example.tugasrancang',
   );
 }

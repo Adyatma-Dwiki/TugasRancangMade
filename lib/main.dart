@@ -13,10 +13,7 @@ void main() async{
   await Firebase.initializeApp(
   options: DefaultFirebaseOptions.currentPlatform,
 );
-     ChangeNotifierProvider(
-      create: (context) => SwitchState(),
-  );
-  child: runApp( MyApp());
+ runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {

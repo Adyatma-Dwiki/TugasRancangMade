@@ -2,7 +2,6 @@
 
 import 'dart:math';
 
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +28,8 @@ class smartDeviceBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(15.0),
-      child: Container(
+      child: 
+      Container(
         decoration: BoxDecoration(
           color: powerOn ? Colors.grey[900] : Colors.grey[200],
           borderRadius: BorderRadius.circular(20),
@@ -40,7 +40,7 @@ class smartDeviceBox extends StatelessWidget {
             children: [
               Image.asset(
                 iconPath,
-                height: 65,
+                height: 45,
                  color: powerOn ? Colors.white : Colors.black,
               ),
               Row(
@@ -51,7 +51,7 @@ class smartDeviceBox extends StatelessWidget {
                       child: Text(smartDeviceName,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                            fontSize: 18,
                             color: powerOn ? Colors.white : Colors.black,
                           )),
                     ),

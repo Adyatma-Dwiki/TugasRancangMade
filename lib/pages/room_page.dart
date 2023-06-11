@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tugasrancang/pages/settings_page.dart';
 
 import '../components/all_devices_box.dart';
 import 'home_page.dart';
@@ -61,36 +62,35 @@ class _AlldevicesState extends State<Alldevices> {
   }
 
   void powerSwitchChanged(bool value, int index) {
-  setState(() {
-    mySmartDevices[index][2] = value;
-  });
+    setState(() {
+      mySmartDevices[index][2] = value;
+    });
 
-  String smartDeviceName = mySmartDevices[index][0];
-  String firebasePath = '';
+    String smartDeviceName = mySmartDevices[index][0];
+    String firebasePath = '';
 
-  switch (smartDeviceName) {
-    case 'Smart Light':
-      for(int i=1; i<=4; i++) {
-    firebasePath = 'All Devices/Ruangan $i/Light';
+    switch (smartDeviceName) {
+      case 'Smart Light':
+        for (int i = 1; i <= 4; i++) {
+          firebasePath = 'All Devices/Ruangan $i/Light';
+          dbR.child(firebasePath).set(value);
+        }
+        break;
+      case 'Smart Door':
+        for (int i = 1; i <= 4; i++) {
+          firebasePath = 'All Devices/Ruangan $i/Door';
+          dbR.child(firebasePath).set(value);
+        }
+        break;
+      case 'Air Conditioner':
+        firebasePath = 'Air Conditioner/Switch';
+        break;
+      default:
+        return;
+    }
+
     dbR.child(firebasePath).set(value);
   }
-  break;
-    case 'Smart Door':
-       for(int i=1; i<=4; i++) {
-    firebasePath = 'All Devices/Ruangan $i/Door';
-    dbR.child(firebasePath).set(value);
-  }
-  break;
-    case 'Air Conditioner':
-      firebasePath = 'Air Conditioner/Switch';
-      break;
-    default:
-      return;
-  }
-
-  dbR.child(firebasePath).set(value);
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -112,13 +112,14 @@ class _AlldevicesState extends State<Alldevices> {
                       style: TextStyle(fontSize: 20, color: Colors.grey[1000])),
                   Text(
                     displayName,
-                    style: GoogleFonts.bebasNeue(
-                      fontSize: 72,
+                    style: GoogleFonts.poppins(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
                     'Temperature: ${temperature.toStringAsFixed(2)}°C\nHumidity: ${humidity.toStringAsFixed(2)}%',
-                    style: GoogleFonts.lato(
+                    style: GoogleFonts.poppins(
                       fontSize: 20,
                       color: Colors.grey[1000],
                     ),
@@ -168,23 +169,52 @@ class _AlldevicesState extends State<Alldevices> {
       ),
       bottomNavigationBar: BottomAppBar(
           child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: [
+      Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HomePage()));
-              },
-              icon: Icon(Icons.home)),
-          IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Alldevices()));
-              },
-              icon: Icon(Icons.devices)),
-          IconButton(onPressed: () {}, icon: Icon(Icons.settings)),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+              );
+            },
+            icon: Icon(Icons.home),
+          ),
+          Text(
+            'Home'
+          ),
         ],
-      )),
+      ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Alldevices()));
+                      },
+                      icon: Icon(Icons.devices)),
+                      Text("All Devices")
+                ],
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => LogOutPage()));
+                      },
+                      icon: Icon(Icons.settings)),
+                      Text("Settings")
+                ],
+              ),
+            ],
+          ),
+      )
     );
   }
 }

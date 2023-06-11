@@ -142,7 +142,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             onTap: signUserUp,
                             text: 'Sign Up',
                           ),
-                          const SizedBox(height: 100),
+                          const SizedBox(height: 50),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
