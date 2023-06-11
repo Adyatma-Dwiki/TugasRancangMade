@@ -79,8 +79,6 @@ void _goToLoginPage() {
   Navigator.pop(context);
 }
 
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -159,7 +157,7 @@ void _goToLoginPage() {
                   ),
                   const SizedBox(width: 10),
                   GestureDetector(
-                    onTap: widget.onTap,
+                    onTap: _goToRegisterPage,
                     child: const Text('Sign Up',
                     style: TextStyle(color: Colors.blue,
                        fontWeight: FontWeight.bold ),),
