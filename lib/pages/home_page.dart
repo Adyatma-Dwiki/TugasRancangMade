@@ -79,310 +79,280 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 175, 174, 175),
-        body: RefreshIndicator(
-          onRefresh: () async {
-            _getTemperatureAndHumidity();
-          },
-          child: SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 20),
-                Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: horizontalPadding,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Welcome Home,",
-                            style: TextStyle(
-                                fontSize: 20, color: Colors.grey[1000])),
-                        Text(
-                          displayName,
-                          style: GoogleFonts.poppins(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          'Temperature: ${temperature.toStringAsFixed(2)}°C\nHumidity: ${humidity.toStringAsFixed(2)}%',
-                          style: GoogleFonts.poppins(
-                            fontSize: 20,
-                            color: Colors.grey[1000],
-                          ),
-                        ),
-                      ],
-                    )),
-                const SizedBox(height: 25),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
-                  child: Divider(
-                    color: Colors.black,
-                    thickness: 1,
+      backgroundColor: Color(0xFFAFAEAF),
+      body: RefreshIndicator(
+        triggerMode: RefreshIndicatorTriggerMode.anywhere,
+        onRefresh: () async {
+          _getTemperatureAndHumidity();
+        },
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 20),
+              Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: horizontalPadding,
                   ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Welcome Home,",
+                          style: TextStyle(
+                              fontSize: 20, color: Colors.grey[1000])),
+                      Text(
+                        displayName,
+                        style: GoogleFonts.poppins(
+                          fontSize: 30,
+                        ),
+                      ),
+                      Text(
+                        'Temperature: ${temperature.toStringAsFixed(2)}°C\nHumidity: ${humidity.toStringAsFixed(2)}%',
+                        style: GoogleFonts.poppins(
+                          fontSize: 20,
+                          color: Colors.grey[1000],
+                        ),
+                      ),
+                    ],
+                  )),
+              const SizedBox(height: 25),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+                child: Divider(
+                  color: Colors.black,
+                  thickness: 1,
                 ),
-                const SizedBox(height: 25),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
-                  child: Text("Smart Room",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24,
-                        color: Colors.grey[800],
-                      )),
-                ),
-                const SizedBox(height: 10),
-                // Inside your Widget build method:
+              ),
+              const SizedBox(height: 10),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+                child: Text("Smart Room",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                      color: Colors.grey[800],
+                    )),
+              ),
+              const SizedBox(height: 10),
+              // Inside your Widget build method:
 
-                Expanded(
-                  child: ListView.builder(
-                      itemCount: 4,
-                      itemBuilder: (context, index) {
-                        return StreamBuilder<DataSnapshot>(
-                          stream: getDataSnapshotStream(dbR
-                              .child('All Devices/Ruangan ${index + 1}/Light')),
-                          builder: (context, snapshot) {
-                            bool lampuRuangan = snapshot.hasData &&
-                                snapshot.data!.value == true;
+              Expanded(
+                child: ListView.builder(
+  itemCount: 4,
+  itemBuilder: (context, index) {
+    return StreamBuilder<DataSnapshot>(
+      stream: getDataSnapshotStream(
+        dbR.child('All Devices/Ruangan ${index + 1}/Light')),
+      builder: (context, snapshot) {
+        bool lampuRuangan =
+            snapshot.hasData && snapshot.data!.value == true;
 
-                            return Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: horizontalPadding, vertical: 5.0),
-                              child: Card(
-                                elevation: 2.0,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                ),
-                                color: index == 0
-                                    ? allDevices1On
-                                        ? Colors.black
-                                        : Color.fromARGB(255, 205, 204, 204)
-                                    : index == 1
-                                        ? allDevices2On
-                                            ? Colors.black
-                                            : Color.fromARGB(255, 205, 204, 204)
-                                        : index == 2
-                                            ? allDevices3On
-                                                ? Colors.black
-                                                : Color.fromARGB(
-                                                    255, 205, 204, 204)
-                                            : allDevices4On
-                                                ? Colors.black
-                                                : Color.fromARGB(
-                                                    255, 205, 204, 204),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 40.0, vertical: 10.0),
-                                  child: Column(
-                                    children: [
-                                      Row(
+        return Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: horizontalPadding, vertical: 5.0),
+          child: Card(
+            elevation: 2.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            color: index == 0
+                ? (allDevices1On
+                    ? Colors.black
+                    : Color.fromARGB(255, 255, 255, 255))
+                : index == 1
+                    ? (allDevices2On
+                        ? Colors.black
+                        : Color.fromARGB(255, 255, 255, 255))
+                    : index == 2
+                        ? (allDevices3On
+                            ? Colors.black
+                            : Color.fromARGB(255, 255, 255, 255))
+                        : (allDevices4On
+                            ? Colors.black
+                            : Color.fromARGB(255, 255, 255, 255)),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 40.0, vertical: 10.0),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        index == 0
+                            ? "Ruangan 1"
+                            : index == 1
+                                ? "Ruangan 2"
+                                : index == 2
+                                    ? "Ruangan 3"
+                                    : "Ruangan 4",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: index == 0
+                              ? (allDevices1On
+                                  ? Colors.white
+                                  : Colors.grey[800])
+                              : index == 1
+                                  ? (allDevices2On
+                                      ? Colors.white
+                                      : Colors.grey[800])
+                                  : index == 2
+                                      ? (allDevices3On
+                                          ? Colors.white
+                                          : Colors.grey[800])
+                                      : (allDevices4On
+                                          ? Colors.white
+                                          : Colors.grey[800]),
+                        ),
+                      ),
+                    ]),
+                                  const SizedBox(height: 10),
+                                  StreamBuilder<DataSnapshot>(
+                                    stream: getDataSnapshotStream(dbR.child(
+                                        'All Devices/Ruangan ${index + 1}/Light')),
+                                    builder: (context, snapshot) {
+                                      bool lampuRuangan = snapshot.hasData &&
+                                          snapshot.data!.value == true;
+                                      return Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            index == 0
-                                                ? "Ruangan 1"
-                                                : index == 1
-                                                    ? "Ruangan 2"
-                                                    : index == 2
-                                                        ? "Ruangan 3"
-                                                        : "Ruangan 4",
+                                            "Light",
                                             style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20,
-                                              color: index == 0
-                                                  ? allDevices1On
-                                                      ? Colors.white
-                                                      : Colors.grey[800]
-                                                  : index == 1
-                                                      ? allDevices2On
+                                              fontSize: 16,
+                                              color: lampuRuangan
+                                                  ? (index == 0
+                                                      ? (allDevices1On
                                                           ? Colors.white
-                                                          : Colors.grey[800]
-                                                      : index == 2
-                                                          ? allDevices3On
-                                                              ? Colors.white
-                                                              : Colors.grey[800]
-                                                          : allDevices4On
+                                                          : Colors.grey[800])
+                                                      : index == 1
+                                                          ? (allDevices2On
                                                               ? Colors.white
                                                               : Colors
-                                                                  .grey[800],
+                                                                  .grey[800])
+                                                          : index == 2
+                                                              ? (allDevices3On
+                                                                  ? Colors.white
+                                                                  : Colors.grey[
+                                                                      800])
+                                                              : (allDevices4On
+                                                                  ? Colors.white
+                                                                  : Colors.grey[
+                                                                      800]))
+                                                  : Colors.grey[800],
                                             ),
                                           ),
                                           CupertinoSwitch(
-                                            value: index == 0
-                                                ? allDevices1On
-                                                : index == 1
-                                                    ? allDevices2On
-                                                    : index == 2
-                                                        ? allDevices3On
-                                                        : allDevices4On,
+                                            value: lampuRuangan,
                                             onChanged: (newValue) {
-                                              setState(() {
-                                                if (index == 0) {
-                                                  allDevices1On = newValue;
-                                                  lampuRuangan1 = newValue;
-                                                  pintuRuangan1 = newValue;
-                                                  dbR.update({
-                                                    'All Devices/Ruangan 1/Light':
-                                                        lampuRuangan1,
-                                                    'All Devices/Ruangan 1/Door':
-                                                        pintuRuangan1,
-                                                  });
-                                                } else if (index == 1) {
-                                                  allDevices2On = newValue;
-                                                  lampuRuangan2 = newValue;
-                                                  pintuRuangan2 = newValue;
-                                                  dbR.update({
-                                                    'All Devices/Ruangan 2/Light':
-                                                        lampuRuangan2,
-                                                    'All Devices/Ruangan 2/Door':
-                                                        pintuRuangan2,
-                                                  });
-                                                } else if (index == 2) {
-                                                  allDevices3On = newValue;
-                                                  lampuRuangan3 = newValue;
-                                                  pintuRuangan3 = newValue;
-                                                  dbR.update({
-                                                    'All Devices/Ruangan 3/Light':
-                                                        lampuRuangan3,
-                                                    'All Devices/Ruangan 3/Door':
-                                                        pintuRuangan3,
-                                                  });
-                                                } else {
-                                                  allDevices4On = newValue;
-                                                  lampuRuangan4 = newValue;
-                                                  pintuRuangan4 = newValue;
-                                                  dbR.update({
-                                                    'All Devices/Ruangan 4/Light':
-                                                        lampuRuangan4,
-                                                    'All Devices/Ruangan 4/Door':
-                                                        pintuRuangan4,
-                                                  });
-                                                }
-                                              });
+                                              dbR
+                                                  .child(
+                                                      'All Devices/Ruangan ${index + 1}/Light')
+                                                  .set(newValue);
                                             },
                                           ),
                                         ],
-                                      ),
-                                      const SizedBox(height: 10),
-                                      StreamBuilder<DataSnapshot>(
-                                        stream: getDataSnapshotStream(dbR.child(
-                                            'All Devices/Ruangan ${index + 1}/Light')),
-                                        builder: (context, snapshot) {
-                                          bool lampuRuangan =
-                                              snapshot.hasData &&
-                                                  snapshot.data!.value == true;
-
-                                          return Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                "Light",
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: lampuRuangan
-                                                      ? (allDevices1On
-                                                          ? Colors.white
-                                                          : Colors.grey[800])
-                                                      : Colors.grey[800],
-                                                ),
-                                              ),
-                                              CupertinoSwitch(
-                                                value: lampuRuangan,
-                                                onChanged: (newValue) {
-                                                  dbR
-                                                      .child(
-                                                          'All Devices/Ruangan ${index + 1}/Light')
-                                                      .set(newValue);
-                                                },
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      ),
-                                      const SizedBox(height: 10),
-                                      StreamBuilder<DataSnapshot>(
-                                        stream: getDataSnapshotStream(dbR.child(
-                                            'All Devices/Ruangan ${index + 1}/Door')),
-                                        builder: (context, snapshot) {
-                                          bool doorLock = snapshot.hasData &&
-                                              snapshot.data!.value == true;
-
-                                          return Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                "Door Lock",
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: doorLock
-                                                      ? (allDevices1On
-                                                          ? Colors.white
-                                                          : Colors.grey[800])
-                                                      : Colors.grey[800],
-                                                ),
-                                              ),
-                                              CupertinoSwitch(
-                                                value: doorLock,
-                                                onChanged: (newValue) {
-                                                  dbR
-                                                      .child(
-                                                          'All Devices/Ruangan ${index + 1}/Door')
-                                                      .set(newValue);
-                                                },
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      ),
-                                    ],
+                                      );
+                                    },
                                   ),
-                                ),
+                                  const SizedBox(height: 10),
+                                  StreamBuilder<DataSnapshot>(
+                                    stream: getDataSnapshotStream(dbR.child(
+                                        'All Devices/Ruangan ${index + 1}/Door')),
+                                    builder: (context, snapshot) {
+                                      bool doorLock = snapshot.hasData &&
+                                          snapshot.data!.value == true;
+
+                                      return Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "Door Lock",
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: doorLock
+                                                  ? (index == 0
+                                                      ? (allDevices1On
+                                                          ? Colors.white
+                                                          : Colors.grey[800])
+                                                      : index == 1
+                                                          ? (allDevices2On
+                                                              ? Colors.white
+                                                              : Colors
+                                                                  .grey[800])
+                                                          : index == 2
+                                                              ? (allDevices3On
+                                                                  ? Colors.white
+                                                                  : Colors.grey[
+                                                                      800])
+                                                              : (allDevices4On
+                                                                  ? Colors.white
+                                                                  : Colors.grey[
+                                                                      800]))
+                                                  : Colors.grey[800],
+                                            ),
+                                          ),
+                                          CupertinoSwitch(
+                                            value: doorLock,
+                                            onChanged: (newValue) {
+                                              dbR
+                                                  .child(
+                                                      'All Devices/Ruangan ${index + 1}/Door')
+                                                  .set(newValue);
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  ),
+                                ],
                               ),
-                            );
-                          },
+                            ),
+                          ),
                         );
-                      }),
+                      },
+                    );
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-        bottomNavigationBar: BottomAppBar(
+      ),
+     bottomNavigationBar: BottomAppBar(
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomePage()),
-                      );
-                    },
-                    icon: Icon(Icons.home),
-                  ),
-                  Text('Home'),
-                ],
-              ),
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: [
+      Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+              );
+            },
+            icon: Icon(Icons.home),
+          ),
+          Text(
+            'Home'
+          ),
+        ],
+      ),
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   IconButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Alldevices()));
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Alldevices()));
                       },
                       icon: Icon(Icons.devices)),
-                  Text("All Devices")
+                      Text("All Devices")
                 ],
               ),
               Column(
@@ -390,17 +360,16 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   IconButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LogOutPage()));
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => LogOutPage()));
                       },
                       icon: Icon(Icons.settings)),
-                  Text("Settings")
+                      Text("Settings")
                 ],
               ),
             ],
           ),
-        ));
+      )
+    );
   }
 }

@@ -95,76 +95,83 @@ class _AlldevicesState extends State<Alldevices> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 175, 174, 175),
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 20),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: horizontalPadding,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Welcome Home,",
-                      style: TextStyle(fontSize: 20, color: Colors.grey[1000])),
-                  Text(
-                    displayName,
-                    style: GoogleFonts.poppins(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'Temperature: ${temperature.toStringAsFixed(2)}°C\nHumidity: ${humidity.toStringAsFixed(2)}%',
-                    style: GoogleFonts.poppins(
-                      fontSize: 20,
-                      color: Colors.grey[1000],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
-              child: Divider(
-                color: Colors.black,
-                thickness: 1,
-              ),
-            ),
-            const SizedBox(height: 25),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
-              child: Text("All Devices",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24,
-                    color: Colors.grey[800],
-                  )),
-            ),
-            const SizedBox(height: 25),
-            Expanded(
-              child: GridView.builder(
-                itemCount: mySmartDevices.length,
-                physics: BouncingScrollPhysics(),
-                padding: EdgeInsets.all(25),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 1 / 1.2,
+      backgroundColor: Color(0xFFAFAEAF),
+      body:
+      RefreshIndicator(
+          onRefresh: () async {
+            _getTemperatureAndHumidity();
+          },
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 20),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: horizontalPadding,
                 ),
-                itemBuilder: (context, index) {
-                  return smartDeviceBox(
-                    smartDeviceName: mySmartDevices[index][0],
-                    powerOn: mySmartDevices[index][2],
-                    iconPath: mySmartDevices[index][1],
-                    onChanged: (value) => powerSwitchChanged(value, index),
-                  );
-                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Welcome Home,",
+                        style: TextStyle(fontSize: 20, color: Colors.grey[1000])),
+                    Text(
+                      displayName,
+                      style: GoogleFonts.poppins(
+                        fontSize: 30,
+                     
+                      ),
+                    ),
+                    Text(
+                      'Temperature: ${temperature.toStringAsFixed(2)}°C\nHumidity: ${humidity.toStringAsFixed(2)}%',
+                      style: GoogleFonts.poppins(
+                        fontSize: 20,
+                        color: Colors.grey[1000],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+              const SizedBox(height: 25),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+                child: Divider(
+                  color: Colors.black,
+                  thickness: 1,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+                child: Text("All Devices",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                      color: Colors.grey[800],
+                    )),
+              ),
+
+              Expanded(
+                child: GridView.builder(
+                  itemCount: mySmartDevices.length,
+                  physics: BouncingScrollPhysics(),
+                  padding: EdgeInsets.all(25),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 1 / 1.2,
+                  ),
+                  itemBuilder: (context, index) {
+                    return smartDeviceBox(
+                      smartDeviceName: mySmartDevices[index][0],
+                      powerOn: mySmartDevices[index][2],
+                      iconPath: mySmartDevices[index][1],
+                      onChanged: (value) => powerSwitchChanged(value, index),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: BottomAppBar(

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unused_field, deprecated_member_use, prefer_interpolation_to_compose_strings, camel_case_types
+// ignore_for_file: prefer_const_constructors, unused_field, deprecated_member_use, prefer_interpolation_to_compose_strings, camel_case_types, must_be_immutable
 
 import 'dart:math';
 

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, duplicate_import
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,7 +8,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tugasrancang/pages/forget_pass.dart';
 import 'package:tugasrancang/pages/login_page.dart';
 
-import '../components/all_devices_box.dart';
 import 'home_page.dart';
 import 'room_page.dart';
 
@@ -42,7 +41,7 @@ class _LogOutPageState extends State<LogOutPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 175, 174, 175),
+        backgroundColor: Color(0xFFAFAEAF),
         body: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

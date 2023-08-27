@@ -82,7 +82,7 @@ void _goToLoginPage() {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 175, 174, 175),
+        backgroundColor: Color(0xFFAFAEAF),
         body: SafeArea(
             child: ListView(
             children: [
